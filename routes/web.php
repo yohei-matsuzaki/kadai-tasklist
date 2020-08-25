@@ -15,3 +15,12 @@ Route::get('/', 'TasksController@index');
 
 // CRUD
 Route::resource('tasks', 'TasksController');
+
+// ユーザ登録
+Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup.get');
+Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+
+//トップページ　サインイン
+Route::get('/', function () {
+    return view('welcome');
+});
