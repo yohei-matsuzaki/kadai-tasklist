@@ -18,9 +18,11 @@ class TasksController extends Controller
          $data = [];
         if (\Auth::check()) { // 認証済みの場合
             // 認証済みユーザを取得
+            //$tasks = Task::all();
+            
             $user = \Auth::user();
             // ユーザの投稿の一覧を作成日時の降順で取得
-            $tasks = $user->tasks()->orderBy('desc')->paginate(10);
+            $tasks = $user->tasks()->orderBy('created_at', 'desc')->paginate(10);
 
             $data = [
                 'user' => $user,
@@ -32,9 +34,10 @@ class TasksController extends Controller
         }
 
         // メッセージ一覧ビューでそれを表示
-        return view('tasks.index', [
-            'tasks' => $tasks,
-        ]); //
+        return view('tasks.index',$data);
+        //[
+          //  'tasks' => $tasks,
+        //]); //
    // }
 }
     /**
@@ -47,8 +50,8 @@ class TasksController extends Controller
         $task = new Task;
 
         // メッセージ作成ビューを表示
-        return view('tasks.create', [
-            'task' => $task,
+        return view('tasks.create',[
+         'task' => $task,
         ]); //
     }
 
@@ -66,16 +69,17 @@ class TasksController extends Controller
             'content' => 'required|max:255',
         ]);
         // メッセージを作成　前のバージョン
-        $task = new Task;
-        $task->status = $request->status;//追加
-        $task->content = $request->content;
-        $task->save(); //
+        //$task = new Task;
+        //$task->status = $request->user()->status;//追加
+        //$task->content = $request->user()->content;
+        //$task->save(); //
         
          // メッセージを作成　新しいバージョン
         // 認証済みユーザ（閲覧者）の投稿として作成（リクエストされた値をもとに作成）
-        //$request->user()->tasks()->create([
-         //   'content' => $request->content,
-        //]);
+        $request->user()->tasks()->create([
+          'content' => $request->content,
+          'status' => $request->status,
+        ]);
         // トップページへリダイレクトさせる
         return redirect('/');
     }
