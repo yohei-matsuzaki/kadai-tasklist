@@ -12,13 +12,13 @@
 */
 //トップページ　サインイン
 
-Route::get('/', function () {
-  return view('welcome');
-});
+//Route::get('/', function () {
+//  return view('welcome');
+//});
 
 // CRUD
 //Route::resource('tasks', 'TaskController');
-
+Route::get('/', 'TasksController@index');// 上書き
 
 // ユーザ登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup.get');
