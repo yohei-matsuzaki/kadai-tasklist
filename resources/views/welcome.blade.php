@@ -4,7 +4,18 @@
     @if (Auth::check())
           
                         
-                 
+        <div class="center jumbotron">
+            <div class="text-center">
+                <h1>Welcome to the Tasklist</h1>
+                {{-- ユーザ登録ページへのリンク --}}
+                {!! link_to_route('tasks.index', 'タスク詳細', [], ['class' => 'btn btn-lg btn-primary']) !!}
+                
+              
+            </div>
+        </div>
+        
+        
+        
                       
                       
                       

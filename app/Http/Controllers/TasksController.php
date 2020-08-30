@@ -15,30 +15,41 @@ class TasksController extends Controller
      */
     public function index()
     {
-         $data = [];
         if (\Auth::check()) { // 認証済みの場合
+         $data = [];
+          //0830変更
+        //if (\Auth::check()) { // 認証済みの場合
+        //変更終わり
             // 認証済みユーザを取得
             //$tasks = Task::all();
             
-            $user = \Auth::user();
+            //$user = \Auth::user();
+             //0830変更
             // ユーザの投稿の一覧を作成日時の降順で取得
-            $tasks = $user->tasks()->orderBy('created_at', 'desc')->paginate(10);
-
+            //$tasks = $user->tasks()->orderBy('created_at', 'desc')->paginate(10);
+            //変更終わり
+            
+            $tasks = Task::all();
+            
+            
             $data = [
-                'user' => $user,
+               // 'user' => $user,
                 'tasks' => $tasks,
        //if (\Auth::check()) { // 認証済みの場合
        // メッセージ一覧を取得
         //$tasks = Task::all();
          ];
-        }
+       // }
 
         // メッセージ一覧ビューでそれを表示
         return view('tasks.index',$data);
         //[
           //  'tasks' => $tasks,
         //]); //
-   // }
+      }
+     
+          
+      
 }
     /**
      * Show the form for creating a new resource.
@@ -102,6 +113,9 @@ class TasksController extends Controller
         return view('tasks.show', [
             'task' => $task,
         ]);//
+        }
+        else{
+            return redirect('/');//
         }
     }
 
