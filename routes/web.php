@@ -15,6 +15,7 @@ Route::get('/', function () {
   return view('welcome');
 });
 
+
 // CRUD
 //Route::resource('tasks', 'TaskController');
 //Route::get('/', 'TasksController@index');// 上書き
@@ -33,4 +34,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('tasks', 'TasksController', ['only' => ['index','create', 'show','store','edit','update','destroy']]);
     //Route::get('/', 'TasksController@index');
 });
+
 
